@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Alarm Clock</title>
+	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="CSS/CSSFK.css"> 	
+	<script src="libraries/jquery-1.12.1.js"></script>
+	<script src="libraries/responsivevoice.js"></script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<style type="text/css">
+	
+		.mainc {
+		    position: absolute;
+		 }
+
+
+		body{
+			background-image: url("images/clock2.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
+
+		} 
+		h1{
+			text-align: left;
+			font-size: 16px;
+			margin: 0;
+			padding: 0;
+		}
+
+		.myp,.myp2{
+			text-align: left;
+			font-size: 16px;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+		}
+
+		#myTime{
+			
+			font-family: "Orbitron";
+			font-size: 120px;
+			color:white;
+			text-align: center;
+			animation: myAnimation_a 10S infinite;
+
+		}
+
+		#divalarm{
+			margin-top:100px;
+			background-color: black;
+			animation: shake 1s infinite;
+			animation-play-state: paused;
+			border: 2px double white;
+			display: flex;
+			flex-direction: row;
+			align-content: left;
+			align-items: left;
+		}
+		#maindiv{
+
+			animation: shrink 7s infinite;
+
+		}
+
+		.title1,.title2,#red{
+			font-size: 22px;
+			font-weight: 1000;
+			text-align: left;
+			color: #202020;
+			
+		}
+	
+		.days{
+			font-size: 30px;
+			text-align: left;
+			color: blue;
+		}
+	
+
+
+		#clock{
+			margin: auto;
+			width: 90%;
+			height: 100%;
+
+		}
+
+
+		#clock2{
+			width:10%;
+			background-color: lightyellow;
+		}
+
+		.setclock{
+			display: flex;
+			flex-direction: column;
+			border: 2px double gray;
+			margin: 2px 2px 2px 2px ;  
+			flex-direction: column;
+			align-content: left;
+			align-items: left;
+		}
+
+		#sc1,#sc2,#sc3,#sc4{ 
+			width: 140px;
+			height: 70px;
+		}
+
+		#sc1{
+			background-color: #E5CCFF;
+		}	
+
+		#sc2{
+			background-color: #ffb266;
+		}	
+
+		#sc3{
+			background-color: #009999;
+		}	
+
+		#sc4{
+			background-color: #ff6666;
+		}	
+
+		#sc5{ 
+			width: 140px;
+			height: 250px;
+			background-color: #FFE5CC;
+		}	
+
+		.btn{
+			width: 140px;
+			height: 50px;
+			border-radius: 8px; 
+			font-size: 22px;
+			font-weight: 1000;
+			text-align: center;
+			color: white;
+			background-color: #003366;
+
+		}
+
+		#alarmSet{
+			font-size: 20px;
+			color: linear-gradient(132deg,white,#006666);
+
+		}
+
+		@keyframes shake {
+		  10%, 90% {
+		    transform: translate3d(-1px, -1px, -1px);
+		  }
+		  
+		  20%, 80% {
+		    transform: translate3d(2px, 40px, 42px);
+		  }
+
+		  30%, 50%, 70% {
+		    transform: translate3d(-4px, -50px, -52px);
+		  }
+
+		  40%, 60% {
+		    transform: translate3d(4px, 64px, 66px);
+		  }
+		}
+
+
+		@keyframes bubble {
+		    0% {
+		        -webkit-transform: translateY(0);
+		        transform: translateY(0);
+		    }
+		    100% {
+		        -webkit-transform: translateY(-1080px) rotate(630deg);
+		        transform: translateY(-1080px) rotate(630deg);
+		    }
+		}
+
+		@keyframes shrink {
+		      0% {top: 0px; background-color:  black; width: 130px;}
+		     50% {top: 0px; background-color:  gray; width: 100%;}
+		    100% {top: 0px; background-color: black; width: 130px;}
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="mainc" >
+		<div class="circle" > <p class="myp" >Tick Tock </p> </div>	
+		<div class="circle" > <p class="myp">Tick Tock Tick Tock Tick Tock Tick Tock</p></div>	
+		<div class="circle" > <p class="myp">Tick Tock</p></div>	
+		<div class="circle" > <p class="myp">Tick Tock</p></div>	
+		<div class="circle" > <p class="myp">Tick Tock  Tick Tock Tick Tock</p> </div>	
+		<div class="circle" > <p class="myp">Tick Tock Tick Tock Tick Tock Tick Tock </p></div>	
+		<div class="circle" > <p class="myp">Tick Tock Tick Tock Tick Tock  Tick Tock Tick Tock Tick </p></div>	
+		<div class="circle" > <p class="myp">Tick Tock</p></div>	
+	</div>
+
+
+	<form class="myAlarm" id="myAlarm" onload="setTimeout(loadValues(), 3000);" >
+	
+		<div  id="maindiv">
+
+			<div id="divalarm" >
+
+				<div id="Clock2">
+					<div  class="setclock" id="sc1">
+						<input type="button" name="btnsubmit" id="btns" value="SET ALARM" class="btn"  onclick="createFile();" >
+						<input type="button" name="btnsDismiss" value="DISMISS"    class="btn" onclick="stopAlarm();" >
+					</div>
+					
+					<div class="setclock" id="sc2">
+						<h1 class="title1">Hour </h1>
+						<select class="title2" id="hourL" >Hour</select>
+					</div>
+
+					<div class="setclock" id="sc3">	
+						<h1 class="title1" >Minute</h1>
+						<select class="title2" id="minutesL" ></select>
+					</div>	
+
+					<div class="setclock" id="sc4">
+						<h1 class="title1" >AM/PM</h1>
+						<select class="title1" id="meridian" >
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</div>
+					
+
+					<div class="setclock" id="sc5">
+						<div  id="divdays">
+							<h1  id="alarmSet" ></h1>
+							 <input type="checkbox" name="dayOfWeek" value="Sunday"    class="days" id="sun" >Sunday  <br>
+							 <input type="checkbox" name="dayOfWeek" value="Monday"    class="days" id="mon" >Monday   <br>
+							 <input type="checkbox" name="dayOfWeek" value="Tuesday"   class="days" id="tue" >Tuesday <br>
+							 <input type="checkbox" name="dayOfWeek" value="Wednesday" class="days" id="wed" >Wednesday  <br>
+							 <input type="checkbox" name="dayOfWeek" value="Friday"    class="days" id="fri" >Friday  <br>
+							 <input type="checkbox" name="dayOfWeek" value="Thursday"  class="days" id="thu" >Thursday <br>
+							 <input type="checkbox" name="dayOfWeek" value="Saturday"  class="days" id="sat" >Saturday <br>
+							 <input type="text" name="Name" id="yourname" style=" width: 130px; font-size: 16px; color: blue; margin: 0; padding: 0;  ">
+							 <p class="title2" id="myp2" >Your name </p>
+						</div>											
+					</div>
+				
+				</div>	
+
+				<div id="clock">
+					<h1 id ="myTime" >  </h1>		
+				</div>	
+
+			</div>
+			
+			<div>	
+				
+			<audio  loop auto  id="alarmSound" >
+				<source src="media/alarm.mp3" type="audio/mpeg">
+			</audio>
+
+			</div>
+
+		</div>	
+	</form>	
+</body>
+
+<script type="text/javascript">
+    var myVar = setInterval(getTime, 1000);
+	var arrayValues = [];     
+	var selElement ;
+	var fragment = document.createDocumentFragment();
+	var i=0;
+	var newOpt;
+	var first = true;
+	var dismiss=false;
+	var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var todaysDay = new Date();
+
+
+	// fill the hour picker
+	for (i=1;i<=12;i=i+1){
+		arrayValues[i]=addZero(i,2);
+	}
+
+	selElement = document.getElementById('hourL');	
+	arrayValues.forEach(
+		function(value, index) {
+			newOpt = document.createElement('option');
+			newOpt.innerHTML = value;
+			newOpt.value = value;
+			fragment.appendChild(newOpt);
+		}
+	);
+	selElement.appendChild(fragment);
+
+	arrayValues=[];
+
+
+	// fill the minute picker
+	for (i=0;i<60;i=i+1){
+		arrayValues[i]=addZero(i,2);
+	}
+	selElement = document.getElementById('minutesL');
+
+	arrayValues.forEach(
+		function(value, index) {
+			newOpt = document.createElement('option');
+			newOpt.innerHTML = value;
+			newOpt.value = value;
+			fragment.appendChild(newOpt);
+		}
+	);
+	selElement.appendChild(fragment);
+
+
+	function addZero(value,size){
+		var myValue=value.toString();
+		var k=myValue.length;
+		while (k< size ){
+			myValue="0"+ myValue;
+			k=myValue.length ;
+		}
+		return myValue;
+	}
+
+
+	function addSpace(value,size){
+		var myValue=value.toString();
+		var k=myValue.length;
+		while (k< size ){
+			myValue="_"+ myValue;
+			k=myValue.length ;
+		}
+		return myValue;
+	}
+
+	function getTime() {
+ 		var actualtime = new Date();	
+	    document.getElementById("myTime").innerHTML = actualtime.toLocaleTimeString();
+	    
+		if (first){		
+	
+	    	//document.getElementById("alarmSet").innerHTML = actualtime.toLocaleTimeString();
+	    	createFile()
+	    	first=false;
+		}
+		checkAlarm(document.getElementById("alarmSet").innerHTML);
+	}
+
+	function stopAlarm() {
+
+	    document.getElementById("alarmSound").pause();
+	   	document.getElementById("divalarm").style.animationPlayState = "paused";
+	   	dismiss=true;
+	   	wakeup();
+	   
+		}	
+
+	function loadValues() {
+
+	}
+
+	function  wakeup(){
+		var i=0;
+		var name=document.getElementById("yourname").value;
+		for (i=0;i<=5 ; i=i+1){
+	   		responsiveVoice.speak(name +"   Wake up.  " +"   Wake up.  " + "    Wake up.   " + " Dont be lazy. ","UK English Female",{rate: 0.9});
+	   	}	
+	}
+
+//==================================================================================================================
+
+
+	function checkAlarm(a){
+
+		var alarmTime= String(document.getElementById("alarmSet").innerHTML) ;
+		var localTime= addZero(String(document.getElementById("myTime").innerHTML),11);
+		
+    	var alarmHour =  "";
+    	var alarmMinute = "";
+    	var alarmap =	  "";
+   	
+        var localHour =  "";
+    	var localMinute = "";
+    	var localap =	  "";
+
+    	var myday=  weekday[todaysDay.getDay()].substring(0, 3).toLowerCase();;
+   
+    	alarmHour =   (alarmTime.substring(0, 2));
+    	alarmMinute = (alarmTime.substring(3, 5));
+    	alarmap =	  (alarmTime.substring(9, 11));
+
+	
+    	localHour =   addZero(localTime.substring(0, 2),2);
+    	localMinute = (localTime.substring(3, 5));
+    	localap =	  (localTime.substring(9, 11));
+   			
+
+	    if (alarmHour==localHour && alarmMinute == localMinute  && alarmap===localap && dismiss===false & document.getElementById(myday).checked) {
+		   	document.getElementById("alarmSound").play();
+		   	document.getElementById("divalarm").style.animationPlayState = "running";
+
+	    }
+
+	}
+
+
+	function createFile(){
+		var element;
+		var myString="";
+		var selItem=0;
+		var myAlarmTime="";
+		dismiss = false;
+		
+		selItem = document.getElementById("hourL").selectedIndex;
+        element= document.getElementById("hourL").options;
+    	myString=myString + addSpace(element[selItem].text,10) + "|" ;
+    	myAlarmTime=element[selItem].text +":";
+
+
+		selItem = document.getElementById("minutesL").selectedIndex;
+        element= document.getElementById("minutesL").options;
+    	myString=myString + addSpace(element[selItem].text,10) + "|" ;
+		myAlarmTime=myAlarmTime+element[selItem].text  + ":00 " ;
+
+
+
+		selItem = document.getElementById("meridian").selectedIndex;
+        element= document.getElementById("meridian").options;
+    	myString=myString + addSpace(element[selItem].text,10) + "|" ;
+		myAlarmTime=myAlarmTime+element[selItem].text;
+		
+		if (first===false){
+			responsiveVoice.speak("Set Alarm to : " + myAlarmTime ,"UK English Female",{rate: 0.9});
+		}
+	
+
+		document.getElementById("alarmSet").innerHTML=myAlarmTime
+		//concatenating the days
+		myString=myString + addSpace(document.getElementById("sun").checked,10 ) + "|";
+		myString=myString + addSpace(document.getElementById("mon").checked,10 ) + "|";
+		myString=myString + addSpace(document.getElementById("tue").checked,10 ) + "|";
+		myString=myString + addSpace(document.getElementById("wed").checked,10 ) + "|";
+		myString=myString + addSpace(document.getElementById("thu").checked,10 ) + "|";
+		myString=myString + addSpace(document.getElementById("fri").checked,10 ) + "|";
+		myString=myString + addSpace(document.getElementById("sat").checked,10 ) + "|";
+
+		//myString=myString + addSpace(document.getElementById("alarMsg").innerHTML,10 ) + "|";
+
+
+		//alert(myString);
+	}
+
+
+	
+</script>
+</html>	
